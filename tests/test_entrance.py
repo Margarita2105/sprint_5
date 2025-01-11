@@ -1,107 +1,105 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
-#Вход по кнопке «Войти в аккаунт» на главной
+from locators import Locators
+import urls
 
-driver = webdriver.Chrome()
-driver.get("https://stellarburgers.nomoreparties.site/")
+class TestEntrance:
+# Вход по кнопке «Войти в аккаунт» на главной
+    def test_log_in_to_account_button(self, driver):
+
+        driver.get(urls.stellarburgers)
 #Находим кнопку "Войти в аккаунт" и нажимаем
-driver.find_element(By.XPATH, ".//main//button[text()='Войти в аккаунт']").click()
-# Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//h2[text()='Вход']")))
+        driver.find_element(*Locators.in_to_account).click()
+# Добавь ожидание для загрузки страницы
+        WebDriverWait(driver,3).until(expected_conditions.visibility_of_element_located(Locators.entrance))
 # Выполни вход
 # Найди поле "Email" и заполни его
-driver.find_element(By.XPATH, ".//input[@name='name']").send_keys("khokhlova_14@gmail.com")
+        driver.find_element(*Locators.input_name).send_keys("khokhlova_14@gmail.ru")
 # Найди поле "Пароль" и заполни его
-driver.find_element(By.XPATH, ".//input[@name='Пароль']").send_keys("Deusex77.")
+        driver.find_element(*Locators.input_password).send_keys("Deudeu")
 # Найди кнопку "Войти" и кликни по ней
-driver.find_element(By.XPATH, ".//button[text()='Войти']").click()
+        driver.find_element(*Locators.login_button).click()
 # Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".text.text_type_main-large.mb-5.mt-10")))
+        WebDriverWait(driver,3).until(expected_conditions.visibility_of_element_located(Locators.assemble_burger))
 #Проверить, что вход выполнен и произошло перенаправление на главную страницу
-assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
-driver.quit()
+        assert driver.find_element(*Locators.place_order).text == 'Оформить заказ'
 
 #Вход через кнопку «Личный кабинет»
 
-driver = webdriver.Chrome()
-driver.get("https://stellarburgers.nomoreparties.site/")
+    def test_log_in_personal_account_button(self, driver):
+
+        driver.get(urls.stellarburgers)
 #Находим кнопку "Личный кабинет" и нажимаем
-driver.find_element(By.XPATH, ".//p[text()='Личный Кабинет']").click()
+        driver.find_element(*Locators.personal_account).click()
 # Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//h2[text()='Вход']")))
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.entrance))
 # Выполни вход
 # Найди поле "Email" и заполни его
-driver.find_element(By.XPATH, ".//input[@name='name']").send_keys("khokhlova_14@gmail.com")
+        driver.find_element(*Locators.input_name).send_keys("khokhlova_14@gmail.ru")
 # Найди поле "Пароль" и заполни его
-driver.find_element(By.XPATH, ".//input[@name='Пароль']").send_keys("Deusex77.")
+        driver.find_element(*Locators.input_password).send_keys("Deudeu")
 # Найди кнопку "Войти" и кликни по ней
-driver.find_element(By.XPATH, ".//button[text()='Войти']").click()
+        driver.find_element(*Locators.login_button).click()
 # Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".text.text_type_main-large.mb-5.mt-10")))
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.assemble_burger))
 #Проверить, что вход выполнен и произошло перенаправление на главную страницу
-assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
-driver.quit()
+        assert driver.find_element(*Locators.place_order).text == 'Оформить заказ'
 
 #Вход через кнопку в форме регистрации
 
-driver = webdriver.Chrome()
-driver.get("https://stellarburgers.nomoreparties.site/")
+    def test_log_in_button_in_registration_form(self, driver):
 
+        driver.get(urls.stellarburgers)
 #Переходим к форме регистрации
 #Находим кнопку "Войти в аккаунт" и нажимаем
-driver.find_element(By.XPATH, ".//main//button[text()='Войти в аккаунт']").click()
-# Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//h2[text()='Вход']")))
+        driver.find_element(*Locators.in_to_account).click()
+# Добавь ожидание для загрузки страницы
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.entrance))
 #Находим кнопку "Зарегистрироваться" и нажимаем
-driver.find_element(By.CSS_SELECTOR, ".Auth_link__1fOlj[href='/register']").click()
-# Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.CLASS_NAME, "input__container")))
-
+        driver.find_element(*Locators.registration).click()
+# Добавь ожидание для загрузки страницы
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.picture))
 #Переходим к форме входа
 #Находим кнопку "Войти" и нажимаем
-driver.find_element(By.CSS_SELECTOR, ".Auth_link__1fOlj[href='/login']").click()
-# Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//h2[text()='Вход']")))
+        driver.find_element(*Locators.login_button_in_login_form).click()
+# Добавь ожидание для загрузки страницы
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.entrance))
 # Выполни вход
-# Найди поле "Email" и заполни его
-driver.find_element(By.XPATH, ".//input[@name='name']").send_keys("khokhlova_14@gmail.com")
-# Найди поле "Пароль" и заполни его
-driver.find_element(By.XPATH, ".//input[@name='Пароль']").send_keys("Deusex77.")
-# Найди кнопку "Войти" и кликни по ней
-driver.find_element(By.XPATH, ".//button[text()='Войти']").click()
-# Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".text.text_type_main-large.mb-5.mt-10")))
+    # Найди поле "Email" и заполни его
+        driver.find_element(*Locators.input_name).send_keys("khokhlova_14@gmail.ru")
+    # Найди поле "Пароль" и заполни его
+        driver.find_element(*Locators.input_password).send_keys("Deudeu")
+    # Найди кнопку "Войти" и кликни по ней
+        driver.find_element(*Locators.login_button).click()
+    # Добавь ожидание для загрузки страницы
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.assemble_burger))
 #Проверить, что вход выполнен и произошло перенаправление на главную страницу
-assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
-driver.quit()
+        assert driver.find_element(*Locators.place_order).text == 'Оформить заказ'
 
 #Вход через кнопку в форме восстановления пароля
 
-driver = webdriver.Chrome()
-driver.get("https://stellarburgers.nomoreparties.site/")
+    def test_login_button_in_password_recovere_form(self, driver):
+
+        driver.get(urls.stellarburgers)
 #Находим кнопку "Войти в аккаунт" и нажимаем
-driver.find_element(By.XPATH, ".//main//button[text()='Войти в аккаунт']").click()
-# Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//h2[text()='Вход']")))
+        driver.find_element(*Locators.in_to_account).click()
+# Добавь ожидание для загрузки страницы
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.entrance))
 #Находим кнопку Восстановить пароль и нажимае
-driver.find_element(By.CSS_SELECTOR, ".Auth_link__1fOlj[href='/forgot-password']").click()
+        driver.find_element(*Locators.recover_password).click()
 # Найди кнопку "Войти" и кликни по ней
-driver.find_element(By.CSS_SELECTOR, ".Auth_link__1fOlj[href='/login']").click()
-# Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.XPATH, ".//h2[text()='Вход']")))
+        driver.find_element(*Locators.log_in_after_password_recovery).click()
+# Добавь ожидание для загрузки страницы
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.entrance))
 # Выполни вход
 # Найди поле "Email" и заполни его
-driver.find_element(By.XPATH, ".//input[@name='name']").send_keys("khokhlova_14@gmail.com")
-# Найди поле "Пароль" и заполни его
-driver.find_element(By.XPATH, ".//input[@name='Пароль']").send_keys("Deusex77.")
-# Найди кнопку "Войти" и кликни по ней
-driver.find_element(By.XPATH, ".//button[text()='Войти']").click()
-# Добавь явное ожидание для загрузки страницы
-WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".text.text_type_main-large.mb-5.mt-10")))
+        driver.find_element(*Locators.input_name).send_keys("khokhlova_14@gmail.ru")
+    # Найди поле "Пароль" и заполни его
+        driver.find_element(*Locators.input_password).send_keys("Deudeu")
+    # Найди кнопку "Войти" и кликни по ней
+        driver.find_element(*Locators.login_button).click()
+    # Добавь ожидание для загрузки страницы
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located(Locators.assemble_burger))
 #Проверить, что вход выполнен и произошло перенаправление на главную страницу
-assert driver.current_url == 'https://stellarburgers.nomoreparties.site/'
-
-driver.quit()
+        assert driver.find_element(*Locators.place_order).text == 'Оформить заказ'
